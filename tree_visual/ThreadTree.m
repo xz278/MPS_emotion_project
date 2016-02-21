@@ -26,15 +26,15 @@ classdef ThreadTree < handle
       
       % generate nodes
       cNodes = 0;
-      lText = fgetl(fText);cl
+      lText = fgetl(fText);
       lBody = fgetl(fBody);
       lQuote = fgetl(fQuote);
       lBodyNoQuote = fgetl(fBodyNoQuote);
       tree.nodes = {};
       count = 0;
-      while (lText~=-1 && count <=100)
-        ++cNodes
-        ++count;
+      while (all(lText~=-1) && count<=100)
+        cNodes = cNodes+1;
+        count = count+1;
         tree.nodes{cNodes} = ThreadNode(lText,titles,cNodes,lBody,lQuote,lBodyNoQuote);
         lText = fgetl(fText);
         lBody = fgetl(fBody);
@@ -42,10 +42,10 @@ classdef ThreadTree < handle
         lBodyNoQuote = fgetl(fBodyNoQuote);
       end
       
-      fclose(fileName);
-      fclose(bodyFile);
-      fclose(quoteFile);
-      fclose(bodyNoQuoteFile);
+      fclose(fText);
+      fclose(fBody);
+      fclose(fQuote);
+      fclose(fBodyNoQuote);
     end
   end
 
