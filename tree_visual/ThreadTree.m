@@ -1,32 +1,32 @@
-## an object is a collection of ThreadNodes
+%% an object is a collection of ThreadNodes
 
 classdef ThreadTree < handle
   properties
-    nodes; # a cell array that stores nodes
+    nodes; % a cell array that stores nodes
   end
 
   methods
-    # constructor
+    % constructor
     function tree = ThreadTree(fileName, bodyFile, quoteFile, bodyNoQuoteFile)
-      # get titles
+      % get titles
       titles = getTitles(fileName);
       nTitles = size(titles,2);
       
-      # load files
+      % load files
       fText = fopen(fileName);
       fBody = fopen(bodyFile);
       fQuote = fopen(quoteFile);
       fBodyNoQuote = fopen(bodyNoQuoteFile);
        
-      # skip titles
+      % skip titles
       lText = fgetl(fText);
       lBody = fgetl(fBody);
       lQuote = fgetl(fQuote);
       lBodyNoQuote = fgetl(fBodyNoQuote);
       
-      # generate nodes
+      % generate nodes
       cNodes = 0;
-      lText = fgetl(fText);
+      lText = fgetl(fText);cl
       lBody = fgetl(fBody);
       lQuote = fgetl(fQuote);
       lBodyNoQuote = fgetl(fBodyNoQuote);

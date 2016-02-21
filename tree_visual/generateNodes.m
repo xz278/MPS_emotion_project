@@ -1,7 +1,7 @@
-# get all nodes
+% get all nodes
 function nodes = generateNodes(fileNmae)
 
-# 
+% 
 
 
 

@@ -2,7 +2,7 @@ classdef Map < handle
   properties
     keys;
     values;
-    s; # size
+    s; % size
   end
   
   methods

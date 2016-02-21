@@ -1,5 +1,5 @@
-## extract quote from body if there is quote
-#-----------------------------------------------
+%% extract quote from body if there is quote
+%-----------------------------------------------
 function [quote,bodyWithoutQuote] = extractQuote(body)
   
 end

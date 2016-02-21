@@ -1,4 +1,4 @@
-# test scripts
+% test scripts
 fid = fopen('Raw_data_snoped_post_and_replies.csv');
 fbody = fopen('body.csv');
 fquote = fopen('quote.csv');

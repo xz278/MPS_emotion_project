@@ -1,5 +1,5 @@
-## return the titles from raw data
-## @var titles is a cell array
+%% return the titles from raw data
+%% @var titles is a cell array
 function titles = getTitles(fileName)
   fid = fopen(fileName);
   line = fgetl(fid);
