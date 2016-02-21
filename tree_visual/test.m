@@ -13,7 +13,7 @@ line = fgetl(fid);
 line = fgetl(fid);
 title = getTitles('Raw_data_snoped_post_and_replies.csv');
 node = ThreadNode(line,title,1,bodyL,quoteL,bodyNoQuoteL);
-
+map = node.content;
 
 
 fclose(fbody);

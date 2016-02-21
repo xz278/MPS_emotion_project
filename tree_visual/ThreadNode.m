@@ -21,7 +21,7 @@ classdef ThreadNode < handle
       for (i=1:17)
         # get ith filed value w
         wc = 1;
-        w = [];
+        w = [''];
         while (j<=m && ~strcmp(',',line(j)))
           w(wc) = line(j);
           j = j+1;
@@ -29,15 +29,15 @@ classdef ThreadNode < handle
         end
         j = j+1;
         # put this pair into content
-        node.content.putItem(titles{i},w);
+        node.content.putItem(titles{i},char(w));
       end
       
       # three fileds related to 'body': 21-24
       k = 24;
       b = len;
-      for (c=24:21)
+      for (c=24:-1:21)
         wc = 0; 
-        w = [];
+        w = [''];
         while (b>0 && ~strcmp(line(b),','))
           wc = wc+1;
           w(wc) = line(b);
@@ -45,12 +45,12 @@ classdef ThreadNode < handle
         end
         b = b-1;
         # reverse the word to corret order
-        nw = [];
+        nw = [''];
         for (index = 0:wc-1)
-          nw(index) = w(wc-index);
+          nw(index+1) = w(wc-index);
         end
         # add the field to content
-        node.content.putItem(titles{c},nw);
+        node.content.putItem(titles{c},char(nw));
       end
       
       # fileds regarding 'body' text
@@ -62,19 +62,23 @@ classdef ThreadNode < handle
         i = i+1;
       end
       i = i+1;
-      #node.content.putItem(titles{18},quoteL(i:end));
-      # node.content.putItem('body','test');
-#      
-#      if (i<=size(quoteL,2))
-#        node.content.putItem(titles{19},quoteL(i:end));
-#      else
-#        node.content.putItem(titles{19},'');
-#      end
-#      if (i<=size(bodyNoQuoteL,2))
-#        node.content.putItem(titles{20},bodyNoQuoteL(i:end));
-#      else
-#        node.content.putItem(titles{20},'');
-#      end  
+      nw = bodyL(i:end);
+      node.content.putItem(titles{18},nw);
+      #node.content.putItem(titles{18},'test');
+      #node.content.putItem('body','test');
+      
+      if (i<=size(quoteL,2))
+        nw = quoteL(i:end);
+        node.content.putItem(titles{19},nw);
+      else
+        node.content.putItem(titles{19},'');
+      end
+      if (i<=size(bodyNoQuoteL,2))
+        nw = bodyNoQuoteL(i:end);
+        node.content.putItem(titles{20},nw);
+      else
+        node.content.putItem(titles{20},'');
+      end  
     end
     
     
