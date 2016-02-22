@@ -18,6 +18,19 @@ classdef Map < handle
       end
     end
     
+    function a = contains(self,key)
+      a = 0;
+      i = 1;
+      while (i<=self.s)
+        if (strcmp(self.keys{i},key))
+          a = 1;
+          i = self.s+1;
+        else
+          i = i+1;
+        end
+      end
+    end   
+    
     function putItem(self,key,value)
       hasKey = false;
       index = 1;
@@ -35,7 +48,7 @@ classdef Map < handle
       end
     end
     
-    function value = getItem(self,key)
+    function value = getValue(self,key)
       hasKey = false;
       index = 1;
       while (~hasKey && index<=self.s)
@@ -62,6 +75,15 @@ classdef Map < handle
         fprintf('%s: %s\n',self.keys{i},self.values{i});
       end
     end
+    
+    function printKeys(self)
+      str = [''];
+      for (i=1:self.s)
+        str = [str self.keys{i} '\n'];
+      end
+      fprintf(str);
+    end
+    
     
   end
 end

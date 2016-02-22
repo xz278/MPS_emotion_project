@@ -5,4 +5,5 @@ bodyFile = 'body.csv';
 quoteFile = 'quote.csv';
 bodyNoQuoteFile = 'body_without_quote.csv';
   
-tree = ThreadTree(fileName, bodyFile, quoteFile, bodyNoQuoteFile);
+%tree = ThreadTree(fileName, bodyFile, quoteFile, bodyNoQuoteFile);
+trees = ThreadTrees(fileName, bodyFile, quoteFile, bodyNoQuoteFile);

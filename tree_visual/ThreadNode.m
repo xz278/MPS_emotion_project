@@ -79,6 +79,13 @@ classdef ThreadNode < handle
       end  
     end
     
+    function print(self)
+      self.content.print();
+    end
+    
+    function v = getValue(self,key)
+      v = self.content.getValue(key);
+    end
     
     
   end
