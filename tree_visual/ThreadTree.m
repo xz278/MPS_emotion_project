@@ -67,8 +67,24 @@ classdef ThreadTree < handle
       end
     end
     
+    % get node by id
+    function n = getNodeById(self,id)
+      if (strcmp(class(id),'char'))
+        id = str2num(id);
+      end
+      if (sum(self.ids==id)==0)
+        n = 'id not found'
+      else
+        n = self.nodes{self.ids==id}
+      end   
+    
+    % get node by index
     function n = getNode(self,index)
-      n = self.nodes{index};
+      if (index>self.treeSize)
+        n = 'index out of tree size'
+      else
+        n = self.nodes{index};
+      end
     end
     
     function s = getSize(self)
