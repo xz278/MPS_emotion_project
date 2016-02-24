@@ -1,4 +1,5 @@
 classdef ThreadNode < handle
+
   properties
     id; % id given in raw data, in double, for better search speed
     nodeId; % int; the number of lines given as an input
@@ -98,10 +99,63 @@ classdef ThreadNode < handle
       id = num2str(self.id); 
     end
     
-    function setChild(self)
+    function addChild(self,cId)
+      if (~strcmp(class(cId),'double'))
+        cId = str2num(cId);
+      end
       n = size(self.childrenIds,2);
-      
+      if (sum(self.childrenIds==cId)==0)
+        self.childrenIds(n+1) = cId;
+      end
     end
+
+
+    function id = getChildIdByIndex(self,n)
+      if (size(self.childrenIds,2<n))
+        fprintf('invalid child index');
+      else
+        id = self.childrenIds(n);
+      end
+    end
+
+    % function c = getChildrenById(self,id)
+    %   if (~strcmp(class(id),'double'))
+    %     id = str2num(id);
+    %   end
+
+    %   index = find(self.childrenIds==id);
+    %   if (size(index,2)==0)
+    %     fprintf('invalid id');
+    %   else
+    %     c = 
+    %   end
+    % end
+
+
+    % set parent id
+    function setParent(self,id)
+      if (~strcmp(class(id),'double'))
+        id = str2num(id);
+      end
+      self.parentId = id;
+    end
+
+    function p = getParent(self)
+      p = self.parentId;
+    end
+
     
+    % return the number of direct children
+    function c = getChildrenNum(self)
+      c = size(self.childrenIds,2)
+    end
+
+    function printChildrenId(self)
+      n = size(self.childrenIds,2);
+      for (i=1:n)
+        fprintf('%s\n',num2str(self.childrenIds(i)));
+      end
+    end
+
   end
 end

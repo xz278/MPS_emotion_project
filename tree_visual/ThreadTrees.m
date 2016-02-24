@@ -1,4 +1,5 @@
 classdef ThreadTrees < handle
+
   properties
     trees; % a cell array of ThreadThree
     snopeIds; % a map of snopeIds to corresponding position
@@ -69,6 +70,12 @@ classdef ThreadTrees < handle
       fclose(fBody);
       fclose(fQuote);
       fclose(fBodyNoQuote);
+
+      % chain nodes
+      for (i=1:t.nTrees)
+        t.trees{i}.chainNodes();
+      end
+
     end
 
     function s = getSize(self)
