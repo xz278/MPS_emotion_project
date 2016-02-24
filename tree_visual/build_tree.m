@@ -7,3 +7,4 @@ bodyNoQuoteFile = 'body_without_quote.csv';
   
 %tree = ThreadTree(fileName, bodyFile, quoteFile, bodyNoQuoteFile);
 trees = ThreadTrees(fileName, bodyFile, quoteFile, bodyNoQuoteFile);
+trees.addSnopeId();

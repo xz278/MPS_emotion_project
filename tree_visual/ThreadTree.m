@@ -3,8 +3,9 @@
 classdef ThreadTree < handle
   properties
     nodes; % a cell array that stores nodes
-    ids; % an array of int representing ids
+    ids; % an array of int representing ids from raw data
     treeSize;
+    snopeId;
   end
 
   methods
@@ -55,6 +56,7 @@ classdef ThreadTree < handle
         fclose(fBodyNoQuote);
       end
       tree.treeSize = size(tree.nodes,2);
+      tree.snopeId = '';
     end
     
     function addNode(self,node)
@@ -73,15 +75,18 @@ classdef ThreadTree < handle
         id = str2num(id);
       end
       if (sum(self.ids==id)==0)
-        n = 'id not found'
+        n = null;
+        frpintf('Invalid id\n');
       else
         n = self.nodes{self.ids==id}
       end   
+    end
     
     % get node by index
     function n = getNode(self,index)
       if (index>self.treeSize)
-        n = 'index out of tree size'
+        n = null;
+        fprintf('Index out of bound\n');
       else
         n = self.nodes{index};
       end
@@ -89,6 +94,16 @@ classdef ThreadTree < handle
     
     function s = getSize(self)
       s = self.treeSize;
+    end
+    
+    function addSnopeId(self)
+        if (self.treeSize>0)
+          self.snopeId = self.nodes{1}.getValue('snope_id');
+        end
+    end
+    
+    function id = getSnopeId(self)
+      id = self.snopeId;
     end
     
   end

@@ -79,7 +79,16 @@ classdef ThreadTrees < handle
       if (index>self.nTrees)
         t = 'index out of bound';
       else
-        t = self.trees{index}
+        t = self.trees{index};
+      end
+    end
+    
+    function t = getTreeById(self,snopeId)
+      id = self.snopeIds.getValue(snopeId);
+      if (isnull(id))
+        t = null;
+      else
+        t = trees{id};
       end
     end
     
@@ -89,6 +98,12 @@ classdef ThreadTrees < handle
     
     function ids = printTreesId(self)
       self.snopeIds.printKeys();
+    end
+    
+    function addSnopeId(self)
+      for (i=1:self.nTrees)
+        self.trees{i}.addSnopeId();
+      end
     end
     
   end

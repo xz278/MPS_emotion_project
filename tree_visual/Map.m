@@ -59,7 +59,8 @@ classdef Map < handle
         index = index+1;
       end
       if (~hasKey)
-        value = 'Key not found';
+        value = null;
+        fpintf('Invalid Key\n');
       end
     end
     
