@@ -6,6 +6,8 @@ classdef ThreadNode < handle
     parentId; % int; initally set to 0; added after the entire file is written.
     childrenIds; % an array of integers; same as above
     content; % a map objective
+    children; % a cell array storing pointers to its children node objects
+    parent; % a pointer to parent objects
   end
   
   methods
@@ -14,6 +16,8 @@ classdef ThreadNode < handle
       node.parentId = 0;
       node.childrenIds = [];
       node.content = Map();
+      node.parent = -1;
+      node.children = {};
       n = size(titles,2); % number of titles
       m = size(line,2);
       len = size(line,2);
@@ -147,7 +151,12 @@ classdef ThreadNode < handle
     
     % return the number of direct children
     function c = getChildrenNum(self)
-      c = size(self.childrenIds,2)
+      c = size(self.childrenIds,2);
+    end
+
+    % return true if this node is leaf
+    function l = isLeaf(self)
+      l = self.getChildrenNum==0;
     end
 
     function printChildrenId(self)
@@ -157,5 +166,34 @@ classdef ThreadNode < handle
       end
     end
 
+    function addChildObj(self,node)
+      n = size(self.children,2);
+      self.children{n+1} = node;
+    end
+
+    function setParentObj(self,node)
+      self.parent = node;
+    end
+
+    function obj = getChildrenObj(self,index)
+      obj = self.children{index};
+    end
+
   end
+
+  methods(Static)
+    function n = getLeafNum(node)
+      if (node.isLeaf())
+        n = 1;
+      else
+        c = 0;
+        for (i=1:node.getChildrenNum())
+          c = c+ThreadNode.getLeafNum(node.children{i});
+        end
+        n = c;
+      end
+    end
+  end
+
+
 end

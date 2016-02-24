@@ -121,7 +121,11 @@ classdef ThreadTree < handle
           else
             pNode = self.nodes{location};
             pNode.addChild(self.nodes{i}.getId());
+            pNode.addChildObj(self.nodes{i});
+
             self.nodes{i}.setParent(parentId);
+            self.nodes{i}.setParentObj(pNode);
+
           end
         end
       end
