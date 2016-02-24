@@ -1,6 +1,7 @@
 classdef ThreadNode < handle
   properties
-    id; % int; the number of lines given as an input
+    id; % id given in raw data, in double, for better search speed
+    nodeId; % int; the number of lines given as an input
     parentId; % int; initally set to 0; added after the entire file is written.
     childrenIds; % an array of integers; same as above
     content; % a map objective
@@ -8,7 +9,7 @@ classdef ThreadNode < handle
   
   methods
     function node = ThreadNode(line,titles,id,bodyL,quoteL,bodyNoQuoteL)
-      node.id = id;
+      node.nodeId = id;
       node.parentId = 0;
       node.childrenIds = [];
       node.content = Map();
@@ -51,6 +52,11 @@ classdef ThreadNode < handle
         end
         % add the field to content
         node.content.putItem(titles{c},char(nw));
+        tempId = node.content.getValue('id');
+        if (~strcmp('double',class(tempId)))
+          tempId = str2num(tempId);
+        end
+        node.id = tempId;
       end
       
       % fileds regarding 'body' text
@@ -87,6 +93,15 @@ classdef ThreadNode < handle
       v = self.content.getValue(key);
     end
     
+    % return the id in string form for better display
+    function id = getId(self)
+      id = num2str(self.id); 
+    end
+    
+    function setChild(self)
+      n = size(self.childrenIds,2);
+      
+    end
     
   end
 end

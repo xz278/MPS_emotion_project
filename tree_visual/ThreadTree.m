@@ -106,6 +106,26 @@ classdef ThreadTree < handle
       id = self.snopeId;
     end
     
+    % connect nodes according to ids, call this function when all entries for 
+    % this tree is add.
+    function chainNodes(self)
+      n = self.TreeSize;
+      for (i=1:n)
+        parentId = str2num(self.nodes{i}.getValue('parent_id'));
+        if (length(parentId)==0)
+          % no parent node
+        else
+          location = find(self.ids==parentId);
+          if (location==0)
+            % no parent 
+          else
+            pNode = sef.nodes{locatoin};
+            pNode.
+          end
+        end
+      end
+    end 
+    
   end
 
 end
