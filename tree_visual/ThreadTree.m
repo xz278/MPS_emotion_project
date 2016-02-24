@@ -6,6 +6,8 @@ classdef ThreadTree < handle
     ids; % an array of int representing ids from raw data
     treeSize;
     snopeId;
+    snopeNode;
+    snopedNode;
   end
 
   methods
@@ -71,14 +73,14 @@ classdef ThreadTree < handle
     
     % get node by id
     function n = getNodeById(self,id)
-      if (strcmp(class(id),'char'))
+      if (~strcmp(class(id),'double'))
         id = str2num(id);
       end
       if (sum(self.ids==id)==0)
         n = null;
         frpintf('Invalid id\n');
       else
-        n = self.nodes{self.ids==id}
+        n = self.nodes{self.ids==id};
       end   
     end
     
@@ -100,6 +102,29 @@ classdef ThreadTree < handle
         if (self.treeSize>0)
           self.snopeId = self.nodes{1}.getValue('snope_id');
         end
+
+        % generate snope and snoped node
+        l = size(self.snopeId,2);
+        snopeId = [''];
+        c = 1;
+        while (c<=l && ~strcmp(self.snopeId(c),'_'))
+          snopeId = [snopeId self.snopeId(c)];
+          c = c+1;
+        end
+        c = c+1;
+        self.snopeNode = self.getNodeById(str2num(snopeId));
+        
+        % skip 'snope'
+        while (c<=l && ~strcmp(self.snopeId(c),'_'))
+          c = c+1;
+        end
+        c = c+1;
+        snopedId = [''];
+        while (c<=l && ~strcmp(self.snopeId(c),'_'))
+          snopedId = [snopedId self.snopeId(c)];
+          c = c+1;
+        end
+        self.snopedNode = self.getNodeById(str2num(snopedId));
     end
     
     function id = getSnopeId(self)
@@ -129,7 +154,18 @@ classdef ThreadTree < handle
           end
         end
       end
+
     end 
+
+
+    function n = getSnopeNode(self)
+      n = self.snopeNode;
+    end
+
+    function n = getSnopedNode(self)
+      n = self.snopedNode;
+    end
+
     
   end
 

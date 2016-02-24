@@ -35,7 +35,7 @@ classdef ThreadTrees < handle
       t.trees = {};
       t.snopeIds = Map();
       t.nTrees = 0;
-      while (sum(lText==-1)==0 && cNodes<=50)
+      while (sum(lText==-1)==0 && cNodes<=500)
         % generate next node
         tempNode = ThreadNode(lText,titles,cNodes,lBody,lQuote,lBodyNoQuote);
         snopeId = tempNode.getValue('snope_id');

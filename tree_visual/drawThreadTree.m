@@ -9,7 +9,7 @@ function drawThreadTree(root,color,x,y,w,h,r)
 		return;
 	else
 		% calculate start and end location
-		nl = ThreadNode.getLeafNum(root) % number of children/ whether is leaf
+		nl = ThreadNode.getLeafNum(root); % number of children/ whether is leaf
 		width = nl*w;
 		startX = x-width/2;
 		nc = root.getChildrenNum();
