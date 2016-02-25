@@ -184,6 +184,9 @@ classdef ThreadNode < handle
       obj = self.children{index};
     end
 
+    function setNodeId(self,id)
+      self.nodeId = id;
+    end
 
   end
 

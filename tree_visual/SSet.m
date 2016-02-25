@@ -1,4 +1,4 @@
-% a custom set class resembling that in Java Collection
+% a custom set class 
 classdef SSet < handle
   properties
     items; % a cell array of items in the set, in the form of string

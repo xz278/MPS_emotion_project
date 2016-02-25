@@ -183,6 +183,10 @@ classdef ThreadTree < handle
       if (nargin~=1)
         if (nargin==3)
           if (strcmp(arg1,'highlight'))
+            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
+              fprintf('invalid arguments: bad type\n');
+              return;
+            end
             hl = arg2;
           elseif (strcmp(arg1,'text'))
             txt = arg2;
@@ -193,6 +197,10 @@ classdef ThreadTree < handle
           end
         elseif (nargin==5)
           if (strcmp(arg1,'highlight'))
+            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
+              fprintf('invalid arguments: bad type\n');
+              return;
+            end
             hl = arg2;
           elseif (strcmp(arg1,'text'))
             txt = arg2;
@@ -202,6 +210,10 @@ classdef ThreadTree < handle
             return;
           end
           if (strcmp(arg3,'highlight'))
+            if (~strcmp(class(arg4),'char') && ~strcmp(class(arg4),'double'))
+              fprintf('invalid arguments: bad type\n');
+              return;
+            end
             hl = arg4;
           elseif (strcmp(arg3,'text'))
             txt = arg4;

@@ -44,16 +44,19 @@ classdef ThreadTrees < handle
           t.nTrees = t.nTrees+1;
           t.trees{t.nTrees} = ThreadTree();
           t.snopeIds.putItem(snopeId,t.nTrees);
+          tempNode.setNodeId(t.trees{1}.treeSize+1);
           t.trees{t.nTrees}.addNode(tempNode);
         else
           % if corresponding tree exists
           if (t.snopeIds.contains(snopeId))
             treeIndex = t.snopeIds.getValue(snopeId);
+            tempNode.setNodeId(t.trees{treeIndex}.treeSize+1);
             t.trees{treeIndex}.addNode(tempNode);
           else % if not exists
             t.nTrees = t.nTrees+1;
             t.trees{t.nTrees} = ThreadTree();
             t.snopeIds.putItem(snopeId,t.nTrees);
+            tempNode.setNodeId(t.trees{treeIndex}.treeSize+1);
             t.trees{t.nTrees}.addNode(tempNode);
           end
         end
@@ -117,7 +120,7 @@ classdef ThreadTrees < handle
       fprintf('            snope id         snoped id       size        depth       snope sibling\n');
       fprintf('----------------------------------------------------------------------------------------\n');
       for (i=1:self.nTrees)
-        fprintf('%4.0d     %s      %s       %.0d     %.0d        %.0d\n', i, self.trees{i}.snopeNode.getId(),...
+        fprintf('%4.0d     %s      %s        %3.0d          %2.0d           %3.0d\n', i, self.trees{i}.snopeNode.getId(),...
                                                   self.trees{i}.snopedNode.getId(),...
                                                   self.trees{i}.getSize(),...
                                                   self.trees{i}.getDepth(),...

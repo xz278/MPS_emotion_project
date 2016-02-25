@@ -4,8 +4,20 @@
 % r: radius of node
 % w,h > 2r
 function drawThreadTree(root,color,x,y,w,h,r,txt,hl)
+	clr = color;
+	if (strcmp(class(hl),'double') && hl==0)
+		% do nothing
+	else
+		args = strsplit(hl,',');
+		if (strcmp(args{2},root.getValue(args{1})))
+			clr = 'r';
+		end
+	end
+
+
+
 	if (root.isLeaf()) % if node is leaf
-		drawTreeNode(x,y,r,color);
+		drawTreeNode(x,y,r,clr);
 		% return;
 	else
 		% calculate start and end location
@@ -25,7 +37,7 @@ function drawThreadTree(root,color,x,y,w,h,r,txt,hl)
 			drawThreadTree(node,color,xx,y-h,w,h,r,txt,hl);
 			startX = startX+weight;
 		end
-		drawTreeNode(x,y,r,color);
+		drawTreeNode(x,y,r,clr);
 	end
 
 	text(x,y,...
