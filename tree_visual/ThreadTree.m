@@ -244,6 +244,25 @@ classdef ThreadTree < handle
       end
     end
 
+    function printFieldValues(self,key)
+      fields = SSet(self.nodes{1}.content.keys);
+      if (~fields.contains(key))
+        fprintf('invalid input\n');
+        return;
+      end
+      sset = SSet();
+      for (i=1:self.treeSize)
+        sset.putItem(self.nodes{i}.getValue(key));
+      end
+      items = sset.getItems();
+      temp = ['''' key '''' ' = { '];
+      for (i=1:size(items,2))
+        temp = [temp items{i} ' , '];
+      end
+      temp = [temp(1:end-2) ' }'];
+      fprintf('     %s\n', temp);
+    end
+
 
   end
 

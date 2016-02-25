@@ -15,7 +15,7 @@ classdef SSet < handle
       sset.nItems = size(sset.items,2);
     end
     
-    function addItem(self,item)
+    function putItem(self,item)
       i = 1;
       exist = 0;
       while (i<=self.nItems)
@@ -47,7 +47,7 @@ classdef SSet < handle
     
     
     function i = getItems(self)
-      i.self.items;
+      i = self.items;
     end
     
     function print(self)
