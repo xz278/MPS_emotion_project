@@ -10,14 +10,18 @@ function drawThreadTree(root,color,x,y,w,h,r,txt,hl)
 	else
 		args = strsplit(hl,',');
 		if (strcmp(args{2},root.getValue(args{1})))
-			clr = 'r';
+			clr = [15 111 232]./255;
 		end
 	end
 
 
 
 	if (root.isLeaf()) % if node is leaf
-		drawTreeNode(x,y,r,clr);
+		if (root.isSnope())
+			drawTreeNode(x,y,r,clr,'r',3);
+		else
+			drawTreeNode(x,y,r,clr);
+		end
 		% return;
 	else
 		% calculate start and end location
@@ -37,7 +41,11 @@ function drawThreadTree(root,color,x,y,w,h,r,txt,hl)
 			drawThreadTree(node,color,xx,y-h,w,h,r,txt,hl);
 			startX = startX+weight;
 		end
-		drawTreeNode(x,y,r,clr);
+		if (root.isSnope())
+			drawTreeNode(x,y,r,clr,'r',3);
+		else
+			drawTreeNode(x,y,r,clr);
+		end
 	end
 
 	text(x,y,...

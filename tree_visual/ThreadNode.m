@@ -188,6 +188,14 @@ classdef ThreadNode < handle
       self.nodeId = id;
     end
 
+    function a = isSnope(self)
+      a = strcmp(self.content.getValue('is_snope'),'TRUE');
+    end
+
+    function a = isSnoped(self)
+      a = strcmp(self.content.getValue('is_snoped'),'1');
+    end
+
   end
 
   methods(Static)

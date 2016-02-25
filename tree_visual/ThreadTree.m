@@ -182,7 +182,7 @@ classdef ThreadTree < handle
       hl = 0;
       if (nargin~=1)
         if (nargin==3)
-          if (strcmp(arg1,'highlight'))
+          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
             if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
               fprintf('invalid arguments: bad type\n');
               return;
@@ -196,7 +196,7 @@ classdef ThreadTree < handle
             return;
           end
         elseif (nargin==5)
-          if (strcmp(arg1,'highlight'))
+          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
             if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
               fprintf('invalid arguments: bad type\n');
               return;
@@ -209,7 +209,7 @@ classdef ThreadTree < handle
             fprintf('invalid arguments\n');
             return;
           end
-          if (strcmp(arg3,'highlight'))
+          if (strcmp(arg3,'highlight') || strcmp(arg1,'hl'))
             if (~strcmp(class(arg4),'char') && ~strcmp(class(arg4),'double'))
               fprintf('invalid arguments: bad type\n');
               return;
@@ -232,7 +232,7 @@ classdef ThreadTree < handle
       close all;
       hold on;
       axis off;
-      drawThreadTree(self.snopedNode,'b',0,0,1,1,0.2,txt,hl);
+      drawThreadTree(self.snopedNode,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl);
     end
 
     function printFields(self)
