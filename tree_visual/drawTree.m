@@ -6,11 +6,9 @@
 function drawTree(root,color,x,y,w,h,r)
 	if (root.isLeaf()) % if node is leaf
 		drawTreeNode(x,y,r,color);
-		pause();
-		return;
 	else
 		% calculate start and end location
-		nl = TestTreeNode.getLeafNum(root) % number of children/ whether is leaf
+		nl = TestTreeNode.getLeafNum(root); % number of children/ whether is leaf
 		width = nl*w;
 		startX = x-width/2;
 		nc = root.getChildrenNum();
@@ -21,12 +19,21 @@ function drawTree(root,color,x,y,w,h,r)
 			% weight = nc*w;
 			weight = TestTreeNode.getLeafNum(node)*w;
 			xx = startX+weight/2;
-			fprintf('drawing line');
-			pause();
 			plot([xx,x],[y-h,y],'color','k');
-			pause();
 			drawTree(node,color,xx,y-h,w,h,r);
 			startX = startX+weight;
 		end
 		drawTreeNode(x,y,r,color);
+	end
+	text(x,y,...
+		num2str(root.value),...
+		'Color', 'w',...
+		'HorizontalAlignment','center',...
+		'FontSize',12);
+
+	text(x,y-2*r,...
+		'hahaha', ...
+		'Color','k',...
+		'FontSize',12, ...
+		'HorizontalAlignment','center');
 end

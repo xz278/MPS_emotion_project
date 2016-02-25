@@ -58,6 +58,13 @@ classdef TestTreeNode < handle
 		% 	end
 		% end
 
+		function draw(self)
+			close all;
+			hold on;
+			drawTree(self,'b',0,0,1,1,0.2);
+		end	
+
+
 	end
 
 	methods(Static)

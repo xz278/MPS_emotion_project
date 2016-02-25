@@ -177,16 +177,85 @@ classdef ThreadTree < handle
       d = self.depth;
     end
     
-    function draw(self)
-      drawThreadTree(self.snopedNode,'b',0,0,1,1,0.2);
+    function draw(self,arg1,arg2,arg3,arg4)
+      txt = 0;
+      hl = 0;
+      if (nargin~=1)
+        if (nargin==3)
+          if (strcmp(arg1,'highlight'))
+            hl = arg2;
+          elseif (strcmp(arg1,'text'))
+            txt = arg2;
+          else
+            fprintf('error 01:\n');
+            fprintf('invalid arguments\n');
+            return;
+          end
+        elseif (nargin==5)
+          if (strcmp(arg1,'highlight'))
+            hl = arg2;
+          elseif (strcmp(arg1,'text'))
+            txt = arg2;
+          else
+            fprintf('error 02:\n');
+            fprintf('invalid arguments\n');
+            return;
+          end
+          if (strcmp(arg3,'highlight'))
+            hl = arg4;
+          elseif (strcmp(arg3,'text'))
+            txt = arg4;
+          else
+            fprintf('error 03:\n');
+            fprintf('invalid arguments\n');
+            return;
+          end
+        else
+            fprintf('error 04:\n');
+            fprintf('invalid arguments\n');
+            return;
+        end
+      end
+        
+      close all;
+      hold on;
+      drawThreadTree(self.snopedNode,'b',0,0,1,1,0.2,txt,hl);
     end
 
+    function printFields(self)
+      node = self.nodes{1};
+      fields = node.content.keys;
+      fprintf('  No.     Field\n');
+      fprintf('-------------------------\n');
+      for (i=1:size(fields,2))
+      fprintf('  %2.0d    %s\n',i,fields{i});
+      end
+    end
 
 
   end
 
   
   methods(Static)
+
+      % a helper functoin
+      % function res = readArg(arg)
+      %   c = 1;
+      %   n = size(arg,2);
+      %   res = {};
+      %   n = 0;
+      %   while(c<=n)
+      %     n = n+1;
+      %     t = [''];
+      %     while (~strcmp(',',arg(c)))
+      %       c = c+1;
+      %       t = [t arg(c)];
+      %     end
+      %     c = c+1;
+      %     res{n} = t;
+      %   end
+      % end
+
       function d = computeDepth(node,pd)
         set(0,'RecursionLimit',1000);
         % nc = node.getChildrenNum()
