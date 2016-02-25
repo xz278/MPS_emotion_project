@@ -231,6 +231,7 @@ classdef ThreadTree < handle
         
       close all;
       hold on;
+      axis off;
       drawThreadTree(self.snopedNode,'b',0,0,1,1,0.2,txt,hl);
     end
 

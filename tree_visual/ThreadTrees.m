@@ -56,7 +56,7 @@ classdef ThreadTrees < handle
             t.nTrees = t.nTrees+1;
             t.trees{t.nTrees} = ThreadTree();
             t.snopeIds.putItem(snopeId,t.nTrees);
-            tempNode.setNodeId(t.trees{treeIndex}.treeSize+1);
+            tempNode.setNodeId(t.trees{t.nTrees}.treeSize+1);
             t.trees{t.nTrees}.addNode(tempNode);
           end
         end
