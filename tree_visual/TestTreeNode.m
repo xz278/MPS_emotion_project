@@ -48,12 +48,8 @@ classdef TestTreeNode < handle
 			end
 		end
 
-		function n = getChildrenNum(self)
-			n = size(self.children,2);
-		end
-
 		function l = isLeaf(self)
-			l = self.getChildrenNum==0;
+			l = self.getChildrenNum()==0;
 		end
 
 		% function getLeafNum(self)
@@ -87,6 +83,24 @@ classdef TestTreeNode < handle
 				n = c;
 			end
 		end
+
+		function d = getDepth(node,pd)
+			if (node.isLeaf())
+				d = pd+1;
+			else
+				nc = node.getChildrenNum();
+				t = 0;
+				for (i=1:nc)
+					m = TestTreeNode.getDepth(node.children{i},pd+1);
+					if (m>t)
+						t = m;
+					end
+				end
+				d = t;
+			end
+		end
+
+
 	end
 
 

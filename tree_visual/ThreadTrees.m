@@ -113,6 +113,19 @@ classdef ThreadTrees < handle
       end
     end
     
+    function print(self)
+      fprintf('            snope id         snoped id       size        depth       snope sibling\n');
+      fprintf('----------------------------------------------------------------------------------------\n');
+      for (i=1:self.nTrees)
+        fprintf('%4.0d     %s      %s       %.0d     %.0d        %.0d\n', i, self.trees{i}.snopeNode.getId(),...
+                                                  self.trees{i}.snopedNode.getId(),...
+                                                  self.trees{i}.getSize(),...
+                                                  self.trees{i}.getDepth(),...
+                                                  self.trees{i}.snopedNode.getChildrenNum());
+      end
+    end
+
+
   end
   
 end

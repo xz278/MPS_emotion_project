@@ -102,6 +102,11 @@ classdef ThreadNode < handle
     function id = getId(self)
       id = num2str(self.id); 
     end
+
+    % return id in decimal
+    function id = getNumId(self)
+      id = self.id;
+    end
     
     function addChild(self,cId)
       if (~strcmp(class(cId),'double'))
@@ -156,7 +161,7 @@ classdef ThreadNode < handle
 
     % return true if this node is leaf
     function l = isLeaf(self)
-      l = self.getChildrenNum==0;
+      l = self.getChildrenNum()==0;
     end
 
     function printChildrenId(self)
@@ -179,10 +184,11 @@ classdef ThreadNode < handle
       obj = self.children{index};
     end
 
+
   end
 
   methods(Static)
-    function n = getLeafNum(node)
+    function n = getLeafNum(node)   
       if (node.isLeaf())
         n = 1;
       else
@@ -193,6 +199,8 @@ classdef ThreadNode < handle
         n = c;
       end
     end
+
+
   end
 
 

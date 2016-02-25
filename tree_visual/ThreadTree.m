@@ -8,6 +8,7 @@ classdef ThreadTree < handle
     snopeId;
     snopeNode;
     snopedNode;
+    depth;
   end
 
   methods
@@ -59,6 +60,9 @@ classdef ThreadTree < handle
       end
       tree.treeSize = size(tree.nodes,2);
       tree.snopeId = '';
+      tree.snopeNode = -1;
+      tree.snopedNode = -1;
+      tree.depth = 0;
     end
     
     function addNode(self,node)
@@ -150,11 +154,11 @@ classdef ThreadTree < handle
 
             self.nodes{i}.setParent(parentId);
             self.nodes{i}.setParentObj(pNode);
-
           end
         end
       end
 
+      % self.depth = ThreadTree.computeDepth(self,0);
     end 
 
 
@@ -166,7 +170,41 @@ classdef ThreadTree < handle
       n = self.snopedNode;
     end
 
+    function d = getDepth(self)
+      if (self.depth==0)
+        self.depth = ThreadTree.computeDepth(self.snopedNode,0);
+      end
+      d = self.depth;
+    end
     
+    function draw(self)
+      drawThreadTree(self.snopedNode,'b',0,0,1,1,0.2);
+    end
+
+
+
   end
+
+  
+  methods(Static)
+      function d = computeDepth(node,pd)
+        set(0,'RecursionLimit',1000);
+        % nc = node.getChildrenNum()
+        if (node.isLeaf())
+          d = pd+1;
+        else
+          nc = node.getChildrenNum();
+          t = 0;
+          for (i=1:nc)
+            m = ThreadTree.computeDepth(node.children{i},pd+1);
+            if (m>t)
+              t = m;
+            end
+          end
+          d = t;
+        end
+      end
+  end
+
 
 end
