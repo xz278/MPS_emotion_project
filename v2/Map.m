@@ -8,12 +8,13 @@
 % void                      printKeys()
 % a cell array of keys      getKeys()
 % a cell array of values    getValues()
+% <E>                       getValueByPos(pos)
 %----------------------------------------
 
 classdef Map < handle
   properties
-    keys;
-    values;
+    keys; % cell array
+    values; % cell array
     s; % size
   end
   
@@ -31,6 +32,9 @@ classdef Map < handle
     end
     
     function a = contains(self,key)
+      if (~strcmp(class(key),'char'))
+        key=num2str(key);
+      end
       a = 0;
       i = 1;
       while (i<=self.s)
@@ -44,6 +48,10 @@ classdef Map < handle
     end   
     
     function putItem(self,key,value)
+      if (~strcmp(class(key),'char'))
+        key=num2str(key);
+      end
+
       hasKey = false;
       index = 1;
       while (~hasKey && index<=self.s)
@@ -61,6 +69,10 @@ classdef Map < handle
     end
     
     function value = getValue(self,key)
+      if (~strcmp(class(key),'char'))
+        key=num2str(key);
+      end
+
       hasKey = false;
       index = 1;
       while (~hasKey && index<=self.s)
@@ -105,5 +117,9 @@ classdef Map < handle
       v=self.values;
     end
     
+    function v=getValueByPos(self,pos)
+      v=self.values{pos};
+    end
+
   end
 end

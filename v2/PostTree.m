@@ -24,7 +24,8 @@ classdef PostTree < handle
 				return;
 			end
 			n=self.nPosts+1;
-			self.post{n}=post;
+			self.posts{n}=post;
 			self.nPosts=n;
 		end
 	end
+end

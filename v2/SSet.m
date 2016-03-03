@@ -23,6 +23,9 @@ classdef SSet < handle
     end
     
     function putItem(self,item)
+      if (~strcmp(class(item),'char'))
+        item=num2str(item);
+      end
       i = 1;
       exist = 0;
       while (i<=self.nItems)
@@ -40,6 +43,9 @@ classdef SSet < handle
     end
     
     function a = contains(self,item)
+      if (~strcmp(class(item),'char'))
+        item=num2str(item);
+      end
       i = 1;
       a = 0;
       while (i<=self.nItems)
