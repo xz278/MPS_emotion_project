@@ -61,5 +61,19 @@ classdef Post < handle
 			v=self.content.getValue(key);
 		end
 
+		function addChild(self,c)
+			n=size(self.children,2);
+			n=n+1;
+			self.children{n}=c;
+		end
+
+		function n=getChildrenNum(self)
+			n=size(self.children,2);
+		end
+
+		function res=isLeaf(self)
+			res=self.getChildrenNum==0;
+		end
+
 	end
 end

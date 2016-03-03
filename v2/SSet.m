@@ -27,10 +27,10 @@ classdef SSet < handle
         item=num2str(item);
       end
       i = 1;
-      exist = 0;
-      while (i<=self.nItems)
+      exist = false;
+      while (i<=self.nItems && ~exist)
         if (strcmp(self.items{i},item))
-          exist = 1;
+          exist = true;
           i = self.nItems+1;
         else
           i = i+1;
@@ -71,7 +71,13 @@ classdef SSet < handle
       fprintf(str);
     end
     
+    function s=getSize(self)
+      s=self.nItems;
+    end
     
+    function s=toArray(self)
+      s=self.items;
+    end
   end
   
 end

@@ -6,8 +6,8 @@ function res=combineCellArrays(input)
 	res=input{1};
 	for (i=2:n)
 		for (j=1:size(input{i},2))
-			n=n+1;
-			res{n}=input{i}{j};
+			s=s+1;
+			res{s}=input{i}{j};
 		end
 	end
 end

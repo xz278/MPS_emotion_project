@@ -62,8 +62,8 @@ classdef Map < handle
         index = index+1;
       end
       if (~hasKey)
-        self.keys{index} = key;
-        self.values{index} = value;
+        self.keys{self.s+1} = key;
+        self.values{self.s+1} = value;
         self.s = self.s+1;
       end
     end
@@ -83,7 +83,7 @@ classdef Map < handle
         index = index+1;
       end
       if (~hasKey)
-        value = null;
+        value = '-1';
         fpintf('Invalid Key\n');
       end
     end
@@ -117,7 +117,7 @@ classdef Map < handle
       v=self.values;
     end
     
-    function v=getValueByPos(self,pos)
+    function v=getValueAt(self,pos)
       v=self.values{pos};
     end
 
