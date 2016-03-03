@@ -45,6 +45,7 @@ classdef PostTree < handle
 		end
 
 		function update(self)
+			fprintf('tree_id: %s\n',num2str(self.linkId));
 			% find root
 			c=1;
 			found=false;
@@ -104,6 +105,7 @@ classdef PostTree < handle
     function draw(self,showSnope,lineWidth,arg1,arg2,arg3,arg4)
 	      txt = 0;
 	      hl = 0;
+	      score = 0;
 	      if (nargin~=3)
 	        if (nargin==5)
 	          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
@@ -114,6 +116,8 @@ classdef PostTree < handle
 	            hl = arg2;
 	          elseif (strcmp(arg1,'text'))
 	            txt = arg2;
+	          elseif (strcmp(arg1,'score'))
+	          	score = arg2;
 	          else
 	            fprintf('error 01:\n');
 	            fprintf('invalid arguments\n');
@@ -156,7 +160,7 @@ classdef PostTree < handle
 	      close all;
 	      hold on;
 	      axis off;
-	      drawThreadTree(self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl);
+	      drawThreadTree(self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl,score);
 	    end
 
 	    function b=getBreadthAt(self,d)

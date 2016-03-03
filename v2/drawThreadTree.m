@@ -3,7 +3,7 @@
 % h: vertical distance between nodes
 % r: radius of node
 % w,h > 2r
-function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl)
+function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 	clr = color;
 	if (strcmp(class(hl),'double') && hl==0)
 		% do nothing
@@ -14,6 +14,10 @@ function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl)
 		end
 	end
 
+	if (strcmp('double',class(char)))
+		sc=str2num(root.getValue(score));
+		clr=[0.5 0.5 sc/100];
+	end
 
 
 	if (root.isLeaf()) % if node is leaf
