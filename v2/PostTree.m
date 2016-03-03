@@ -73,8 +73,15 @@ classdef PostTree < handle
 		end
 
 		function [d,b]=computeDepthAndBreadths(self)
+			if (strcmp(class(self.root),'double'))
+				d=0;
+				b=[0 0 0];
+				fprintf('null tree root\n');
+				fprintf('	tree_id: %s\n', num2str(self.linkId));
+				return;
+			end
 			q=SQueue();
-			q.offer(self.root)
+			q.offer(self.root);
 			d=0;
 			b=[];
 			c=0;
@@ -150,6 +157,10 @@ classdef PostTree < handle
 	      hold on;
 	      axis off;
 	      drawThreadTree(self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl);
+	    end
+
+	    function b=getBreadthAt(self,d)
+	    	b=self.breadths(d);
 	    end
 
 	end

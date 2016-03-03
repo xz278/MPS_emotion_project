@@ -53,7 +53,7 @@ classdef PostTrees < handle
 		end
 
 		function t=getTree(self,id)
-			if (self.trees.contains)
+			if (self.trees.contains(id))
 				t=self.trees.getValue(id);
 			else
 				fprintf('link id not found');
@@ -90,63 +90,40 @@ classdef PostTrees < handle
 	        end
 	    end
 
-	    function draw(self,showSnope,lineWidth,arg1,arg2,arg3,arg4)
-	      txt = 0;
-	      hl = 0;
-	      if (nargin~=3)
-	        if (nargin==5)
-	          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
-	            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
-	              fprintf('invalid arguments: bad type\n');
-	              return;
-	            end
-	            hl = arg2;
-	          elseif (strcmp(arg1,'text'))
-	            txt = arg2;
-	          else
-	            fprintf('error 01:\n');
-	            fprintf('invalid arguments\n');
-	            return;
-	          end
-	        elseif (nargin==7)
-	          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
-	            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
-	              fprintf('invalid arguments: bad type\n');
-	              return;
-	            end
-	            hl = arg2;
-	          elseif (strcmp(arg1,'text'))
-	            txt = arg2;
-	          else
-	            fprintf('error 02:\n');
-	            fprintf('invalid arguments\n');
-	            return;
-	          end
-	          if (strcmp(arg3,'highlight') || strcmp(arg1,'hl'))
-	            if (~strcmp(class(arg4),'char') && ~strcmp(class(arg4),'double'))
-	              fprintf('invalid arguments: bad type\n');
-	              return;
-	            end
-	            hl = arg4;
-	          elseif (strcmp(arg3,'text'))
-	            txt = arg4;
-	          else
-	            fprintf('error 03:\n');
-	            fprintf('invalid arguments\n');
-	            return;
-	          end
-	        else
-	            fprintf('error 04:\n');
-	            fprintf('invalid arguments\n');
-	            return;
-	        end
-	      end
-	        
-	      close all;
-	      hold on;
-	      axis off;
-	      drawThreadTree(self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl);
+	    function depthStats(self,d)
+	    	yCount=[];
+	    	yCount2=[];
+	    	m=size(yCount);
+	    	m2=size(yCount2);
+	    	for (i=1:self.nTrees)
+	    		t=self.getTreeAt(i);
+	    		b=t.getBreadthAt(2);
+
+	    		if (b>m)
+	    			yCount(b)=1;
+	    		else
+	    			yCount(b)=yCount(b)+1;
+	    		end
+	    		m=size(yCount,2);
+	    		if (t.getDepth()>2)
+		    		b2=t.getBreadthAt(3);
+		    		if (b2>m2)
+		    			yCount2(b2)=1;
+		    		else
+		    			yCount2(b2)=yCount2(b2)+1;
+		    		end
+		    		m2=size(yCount2,2);
+		    	end
+	    	end
+	    	xBreadths=1:m;
+	    	close all;
+	    	% hold on;
+	    	subplot(2,1,1);
+	    	bar(xBreadths,yCount);
+	    	subplot(2,1,2);
+	    	bar(1:m2,yCount2);
 	    end
+	
 
 
 	end

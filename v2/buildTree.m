@@ -3,7 +3,7 @@
 %-----------------------------------
 
 trees=PostTrees();
-lineLimit=500;
+lineLimit=2000;
 
 
 % ----------------------add field title-------------------------
@@ -39,8 +39,8 @@ l2=fgetl(fid2);
 l3=fgetl(fid3);
 l4=fgetl(fid4);
 l5=fgetl(fid5);
-while (~feof(fid) && c<lineLimit)
-% while (~feof(fid),'double'))
+% while (~feof(fid) && c<lineLimit)
+while (~feof(fid))
 % b=1;
 % while (b<14778)
 % 	b+1;
