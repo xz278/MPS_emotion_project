@@ -45,7 +45,7 @@ classdef PostTree < handle
 		end
 
 		function update(self)
-			fprintf('tree_id: %s\n',num2str(self.linkId));
+			% fprintf('tree_id: %s\n',num2str(self.linkId));
 			% find root
 			c=1;
 			found=false;

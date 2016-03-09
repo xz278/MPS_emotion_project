@@ -14,9 +14,9 @@ function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 		end
 	end
 
-	if (strcmp('double',class(char)))
+	if (strcmp('char',class(score)))
 		sc=str2num(root.getValue(score));
-		clr=[0.5 0.5 sc/100];
+		clr=[0 0 sc/100];
 	end
 
 
@@ -42,7 +42,7 @@ function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 			weight = PostTree.getLeafNum(node)*w;
 			xx = startX+weight/2;
 			plot([xx,x],[y-h,y],'color','k');
-			drawThreadTree(node,showSnope,lineWidth,color,xx,y-h,w,h,r,txt,hl);
+			drawThreadTree(node,showSnope,lineWidth,color,xx,y-h,w,h,r,txt,hl,score);
 			startX = startX+weight;
 		end
 		if (showSnope && root.isSnope())
