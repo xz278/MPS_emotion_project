@@ -32,3 +32,6 @@ for (i=2:n)
 end
 
 trees.update(DATA,ATTR);
+
+% SCORES=xlsread('scores.xlsx');
+% [~,~,SCORES_TITLE]=xlsread('scores_title.xlsx');
