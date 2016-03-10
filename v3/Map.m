@@ -52,16 +52,20 @@ classdef Map < handle
         key=num2str(key);
       end
 
-      hasKey = false;
-      index = 1;
-      while (~hasKey && index<=self.s)
-        if (strcmp(key,self.keys{index}))
-          hasKey = true;
-          self.values{index} = value;
-        end
-        index = index+1;
-      end
-      if (~hasKey)
+      % if (~strcmp(class(value),'char'))
+      %   value=num2str(value);
+      % end
+
+      % hasKey = false;
+      % index = 1;
+      % while (~hasKey && index<=self.s)
+      %   if (strcmp(key,self.keys{index}))
+      %     hasKey = true;
+      %     self.values{index} = value;
+      %   end
+      %   index = index+1;
+      % end
+      if (~self.contains(key))
         self.keys{self.s+1} = key;
         self.values{self.s+1} = value;
         self.s = self.s+1;
@@ -84,7 +88,7 @@ classdef Map < handle
       end
       if (~hasKey)
         value = '-1';
-        fpintf('Invalid Key\n');
+        fprintf('Invalid Key\n');
       end
     end
     
@@ -97,6 +101,10 @@ classdef Map < handle
     
     function print(self)
       for (i=1:self.s)
+        v=self.values{i};
+        if (~strcmp(class(v),'char'))
+          v=num2str(v);
+        end
         fprintf('%s: %s\n',self.keys{i},self.values{i});
       end
     end

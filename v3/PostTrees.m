@@ -4,6 +4,8 @@ classdef PostTrees < handle
 		trees; % a map<snopeid, tree object>
 		nTrees; % number of trees
 		% fields; % a sset of fields
+		% data;
+		% attr;
 
 	end
 
@@ -24,25 +26,25 @@ classdef PostTrees < handle
 		% 	end
 		% end
 
-		function res=contains(self,linkid)
+		function res=contains(self,snopeid)
 			% if (~strcmp(class(linkid),'char'))
 			% 	linkid=num2str(linkid);
 			% end
-			res=self.trees.contains(linkid);
+			res=self.trees.contains(snopeid);
 		end
 
 		% input @tree is a post tree object
 		function addTree(self,tree)
-			if (~self.trees.contains(tree.linkId))
+			if (~self.trees.contains(tree.snopeid))
 				n=self.nTrees+1;
 				self.nTrees=n;
-				self.trees.putItem(tree.linkId,tree)
+				self.trees.putItem(tree.snopeid,tree)
 			end
 		end
 
 		function addPost(self,post)
 			pid=post.id;
-			tid=post.treeId;
+			tid=post.snopeid;
 			if (self.trees.contains(tid))
 				self.trees.getValue(tid).addPost(post);
 			else
@@ -83,7 +85,7 @@ classdef PostTrees < handle
 	        fprintf('            link_id          size        depth       \n');
 	        fprintf('----------------------------------------------------------------------------------------\n');
 	        for (i=1:self.nTrees)
-	            fprintf('%4.0d     %11s         %3.0d          %2.0d           \n', i, num2str(self.getTreeAt(i).linkId),...
+	            fprintf('%4.0d     %11s         %3.0d          %2.0d           \n', i, num2str(self.getTreeAt(i).snopeid),...
 		                                                  self.getTreeAt(i).getSize(),...
 		                                                  self.getTreeAt(i).getDepth()...
 		                                                  );

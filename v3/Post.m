@@ -7,34 +7,24 @@ classdef Post < handle
 		children; % array of children object
 		isSnope;
 		isSnoped;
-		treeId;
 		snopeid;
 	end
 
 	methods
-		function p=Post(index,id,parentId,isSnoped,isSnope,snopeid)
+		function p=Post(index)
+			p.id=-1;
 			p.index=index;
-			p.id=str2num(id);
-			p.parentId=str2num(parentId);
-			if (strcmp(isSnope,'TRUE'))
-				p.isSnope=true;
-			else 
-				p.isSnope=false;
-			end
-			if (strcmp(isSnoped,'1'))	
-				p.isSnoped=true;
-			else
-				p.isSnoped=false;
-			end
-			p.snopeid=snopeid;
 			p.parent=-1;
-			p.children=[];
-			p.treeId=-1;
+			p.parentId-1;
+			p.children={};
+			p.isSnope=false;
+			p.isSnoped=false;
+			p.snopeid=-1;
 		end
 
-		function v=getValue(self,key)
-			% v=self.content.getValue(key);
-			
+
+		function v=getValue(self,key,data,attr)
+			v=data{self.index,attr.getIndex(key)};
 		end
 
 		function addChild(self,c)
@@ -54,14 +44,5 @@ classdef Post < handle
 		function res=isRoot(self)
 			res=self.isSnoped;
 		end
-
-		% function res=isSnope()
-		% 	res=self.isSnoped;
-		% end
-
-		% function res=isSnoped();
-		% 	res=self.isSnoped;
-		% end
-
 	end
 end

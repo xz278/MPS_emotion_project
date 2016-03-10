@@ -4,7 +4,7 @@ classdef PostTree < handle
 		root; % root post object
 		posts; % a cell of post objects
 		depth; % double
-		% linkId; % from raw data in double
+		% snopeid; % from raw data in double
 		snopeid; 
 		nPosts; % number of posts
 		ids; % a array of ids
@@ -13,7 +13,6 @@ classdef PostTree < handle
 
 	methods
 		function pt=PostTree(id)
-			% pt.linkId=id;
 			pt.snopeid=id;
 			pt.root=-1;
 			pt.posts={};
@@ -31,7 +30,7 @@ classdef PostTree < handle
 			n=self.nPosts+1;
 			self.posts{n}=post;
 			self.nPosts=n;
-			self.ids(n)=str2num(post.getValue('id'));
+			self.ids(n)=post.id;
 		end
 
 		function s=getSize(self)
@@ -43,16 +42,16 @@ classdef PostTree < handle
 		end
 
 		function id=getId(self)
-			id=self.linkId;
+			id=self.snopeid;
 		end
 
 		function update(self)
-			% fprintf('tree_id: %s\n',num2str(self.linkId));
+			% fprintf('tree_id: %s\n',num2str(self.snopeid));
 			% find root
 			c=1;
 			found=false;
 			while (c<=self.nPosts && ~found)
-				if (self.posts{c}.isSnoped())
+				if (self.posts{c}.isSnoped)
 					found=true;
 					self.root=self.posts{c};
 				end
@@ -61,8 +60,8 @@ classdef PostTree < handle
 
 			% build tree strucutre
 			for (i=1:self.nPosts)
-				pid=self.posts{i}.content.getValue('parent_id');
-				index=find(self.ids==str2num(pid));
+				pid=self.posts{i}.parentId;
+				index=find(self.ids==pid);
 				if (size(index,2)==0)
 					self.posts{i}.parent=0;
 				else
@@ -80,7 +79,7 @@ classdef PostTree < handle
 				d=0;
 				b=[0 0 0];
 				fprintf('null tree root\n');
-				fprintf('	tree_id: %s\n', num2str(self.linkId));
+				fprintf('	tree_id: %s\n', num2str(self.snopeid));
 				return;
 			end
 			q=SQueue();
@@ -105,6 +104,10 @@ classdef PostTree < handle
 		end
 
     function draw(self,showSnope,lineWidth,arg1,arg2,arg3,arg4)
+    	  if (strcmp(class(self.root),'double'))
+    	  		fprintf('No root/snopee/a1 found: %s\n',self.snopeid);
+    	  		return;
+    	  end
 	      txt = 0;
 	      hl = 0;
 	      score = 0;
