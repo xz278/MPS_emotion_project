@@ -54,9 +54,9 @@ classdef PostTrees < handle
 			end
 		end
 
-		function t=getTree(self,id)
-			if (self.trees.contains(id))
-				t=self.trees.getValue(id);
+		function t=getTree(self,snopeid)
+			if (self.trees.contains(snopeid))
+				t=self.trees.getValue(snopeid);
 			else
 				fprintf('link id not found');
 			end
@@ -129,6 +129,34 @@ classdef PostTrees < handle
 	    end
 	
 
+	    % write tree data to excel file
+	    function writeToFile(self,fileName)
+	    	x={};
+	    	x{1,1}='snope_id';
+	    	x{1,2}='root';
+	    	x{1,3}='snoper';
+	    	x{1,4}='snopee';
+	    	x{1,5}='number of nodes';
+	    	x{1,6}='depth';
+	    	x{1,7}='breadth at 2';
+	    	x{1,8}='breadth at 3';
+	    	ts=self.trees.getValues();
+	    	for (i=1:self.nTrees)
+	    		x{i+1,1}=self.getTreeAt(i).snopeid;
+	    		if (strcmp(class(self.getTreeAt(i).root),'double'))
+		    		x{i+1,2}=-1;
+		    	else
+		    		x{i+1,2}=self.getTreeAt(i).root.id;
+		    	end
+	    		x{i+1,3}=self.getTreeAt(i).snoper;
+	    		x{i+1,4}=self.getTreeAt(i).snopee;
+	    		x{i+1,5}=self.getTreeAt(i).nPosts;
+	    		x{i+1,6}=self.getTreeAt(i).depth;
+	    		x{i+1,7}=self.getTreeAt(i).breadths(2);
+	    		x{i+1,8}=self.getTreeAt(i).breadths(3);
+    		end
+    		xlswrite(fileName,x);
+	    end
 
 	end
 end

@@ -9,6 +9,8 @@ classdef PostTree < handle
 		nPosts; % number of posts
 		ids; % a array of ids
 		breadths;
+		snopee;
+		snoper;
 	end
 
 	methods
@@ -19,7 +21,11 @@ classdef PostTree < handle
 			pt.depth=0;
 			pt.nPosts=0;
 			pt.ids=[];
+			pt.snoper=-1;
+			pt.snopee=-1;
 		end
+
+
 
 		% add post object to tree object
 		function addPost(self,post)
@@ -71,6 +77,10 @@ classdef PostTree < handle
 			end
 
 			[self.depth,self.breadths]=self.computeDepthAndBreadths();
+
+			t=strsplit(self.snopeid,'_');
+			self.snoper=str2num(t{1});
+			self.snopee=str2num(t{3});
 
 		end
 

@@ -19,7 +19,7 @@ global ATTR;
 ATTR=Attr(attrT);
 % ---------------------- create node -------------------------
 trees=PostTrees();
-for (i=2:500)
+for (i=2:n)
 	post=Post(i);
 	post.id=str2num(DATA{i,ATTR.getIndex('id')});
 	post.parentId=str2num(DATA{i,ATTR.getIndex('parent_id')});
