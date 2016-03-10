@@ -70,9 +70,9 @@ classdef PostTrees < handle
 			end
 		end
 
-		function update(self)
+		function update(self,data,attr)
 			for (i=1:self.nTrees)
-				self.trees.values{i}.update();
+				self.trees.values{i}.update(data,attr);
 			end
 		end
 
@@ -140,6 +140,7 @@ classdef PostTrees < handle
 	    	x{1,6}='depth';
 	    	x{1,7}='breadth at 2';
 	    	x{1,8}='breadth at 3';
+	    	x{1,9}='link_id';
 	    	ts=self.trees.getValues();
 	    	for (i=1:self.nTrees)
 	    		x{i+1,1}=self.getTreeAt(i).snopeid;
@@ -154,9 +155,13 @@ classdef PostTrees < handle
 	    		x{i+1,6}=self.getTreeAt(i).depth;
 	    		x{i+1,7}=self.getTreeAt(i).breadths(2);
 	    		x{i+1,8}=self.getTreeAt(i).breadths(3);
+	    		x{i+1,9}=self.getTreeAt(i).link_id;
     		end
     		xlswrite(fileName,x);
 	    end
 
 	end
+
+	
+	
 end

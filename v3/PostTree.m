@@ -11,6 +11,7 @@ classdef PostTree < handle
 		breadths;
 		snopee;
 		snoper;
+		link_id;
 	end
 
 	methods
@@ -23,6 +24,7 @@ classdef PostTree < handle
 			pt.ids=[];
 			pt.snoper=-1;
 			pt.snopee=-1;
+			pt.link_id=-1;
 		end
 
 
@@ -51,7 +53,7 @@ classdef PostTree < handle
 			id=self.snopeid;
 		end
 
-		function update(self)
+		function update(self,data,attr)
 			% fprintf('tree_id: %s\n',num2str(self.snopeid));
 			% find root
 			c=1;
@@ -77,6 +79,8 @@ classdef PostTree < handle
 			end
 
 			[self.depth,self.breadths]=self.computeDepthAndBreadths();
+
+			self.link_id=str2num(self.posts{1}.getValue('link_id',data,attr));
 
 			t=strsplit(self.snopeid,'_');
 			self.snoper=str2num(t{1});

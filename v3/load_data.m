@@ -31,4 +31,4 @@ for (i=2:n)
 	trees.addPost(post);
 end
 
-trees.update();
+trees.update(DATA,ATTR);
