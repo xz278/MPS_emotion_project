@@ -14,3 +14,4 @@ classdef Attr < handle
 			i=self.attrmap.getValue(attr);
 		end
 	end
+end

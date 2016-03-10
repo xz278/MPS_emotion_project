@@ -1,9 +1,9 @@
 classdef PostTrees < handle
 	properties
 		% ids; % a ArrayList of linkids in double
-		trees; % a map<linkid, tree object>
+		trees; % a map<snopeid, tree object>
 		nTrees; % number of trees
-		fields; % a sset of fields
+		% fields; % a sset of fields
 
 	end
 
@@ -12,22 +12,22 @@ classdef PostTrees < handle
 			ts.trees=Map();
 			ts.nTrees=0;
 			% ts.ids=ArrayList();
-			ts.fields=SSet();
+			% ts.fields=SSet();
 		end
 
-		function addFields(self,fs)
-			n=self.fields.getSize();
-			m=size(fs,2);
-			for (i=1:m)
-				n=n+1;
-				self.fields.putItem(fs{i});
-			end
-		end
+		% function addFields(self,fs)
+		% 	n=self.fields.getSize();
+		% 	m=size(fs,2);
+		% 	for (i=1:m)
+		% 		n=n+1;
+		% 		self.fields.putItem(fs{i});
+		% 	end
+		% end
 
 		function res=contains(self,linkid)
-			if (~strcmp(class(linkid),'char'))
-				linkid=num2str(linkid);
-			end
+			% if (~strcmp(class(linkid),'char'))
+			% 	linkid=num2str(linkid);
+			% end
 			res=self.trees.contains(linkid);
 		end
 

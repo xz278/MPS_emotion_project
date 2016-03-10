@@ -4,7 +4,8 @@ classdef PostTree < handle
 		root; % root post object
 		posts; % a cell of post objects
 		depth; % double
-		linkId; % from raw data in double 
+		% linkId; % from raw data in double
+		snopeid; 
 		nPosts; % number of posts
 		ids; % a array of ids
 		breadths;
@@ -12,7 +13,8 @@ classdef PostTree < handle
 
 	methods
 		function pt=PostTree(id)
-			pt.linkId=id;
+			% pt.linkId=id;
+			pt.snopeid=id;
 			pt.root=-1;
 			pt.posts={};
 			pt.depth=0;

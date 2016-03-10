@@ -6,14 +6,20 @@ fileName='raw_data.xlsx';
 attrT=Map();
 % -----------create attributes and corresponding index -------
 for (i=1:d)
-	attrT.add(data{1,i},i);
+	attrT.putItem(data{1,i},i);
 end
 attr=Attr(attrT);
 % ---------------------- create node -------------------------
-
+trees=PostTrees();
 for (i=2:n)
 	post=Post(i,...
 			  data{i,attr.getIndex('id')},...
-			  data{i,attr.getIndex('')}
-			  )
+			  data{i,attr.getIndex('parent_id')},...
+			  data{i,attr.getIndex('is_snoped')},...
+			  data{i,attr.getIndex('is_snope')},...
+			  data{i,attr.getIndex('snope_id')}...
+			  );
+	% add node to a tree
+	if (trees.contains(post.))
+
 end
