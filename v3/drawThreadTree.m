@@ -3,21 +3,22 @@
 % h: vertical distance between nodes
 % r: radius of node
 % w,h > 2r
-function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
+function drawThreadTree(data,attr,root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 	clr = color;
 	if (strcmp(class(hl),'double') && hl==0)
 		% do nothing
 	else
 		args = strsplit(hl,',');
-		if (strcmp(args{2},root.getValue(args{1})))
+		if (strcmp(args{2},data{root.index,attr.getIndex(args{1})}))
 			clr = [15 111 232]./255;
 		end
 	end
 
-	if (strcmp('char',class(score)))
-		sc=str2num(root.getValue(score));
-		clr=[0 0 sc/100];
-	end
+	% color the node based on its value
+	% if (strcmp('char',class(score)))
+	% 	sc=str2num(root.getValue(score));
+	% 	clr=[0 0 sc/100];
+	% end
 
 
 	if (root.isLeaf()) % if node is leaf
@@ -42,7 +43,7 @@ function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 			weight = PostTree.getLeafNum(node)*w;
 			xx = startX+weight/2;
 			plot([xx,x],[y-h,y],'color','k');
-			drawThreadTree(node,showSnope,lineWidth,color,xx,y-h,w,h,r,txt,hl,score);
+			drawThreadTree(data,attr,node,showSnope,lineWidth,color,xx,y-h,w,h,r,txt,hl,score);
 			startX = startX+weight;
 		end
 		if (showSnope && root.isSnope())
@@ -62,23 +63,13 @@ function drawThreadTree(root,showSnope,lineWidth,color,x,y,w,h,r,txt,hl,score)
 	if (strcmp(class(txt),'double') && txt==0)
 		return;
 	end
-	
-	if (strcmp(class(txt),'double'))
-		textToShow = root.content.values{txt};
-		if (strcmp(class(textToShow),'char'))
-			textToShow = num2str(textToShow);
-		end
-	else
-		textToShow = root.getValue(txt);
-		if (strcmp(class(textToShow),'char'))
-			textToShow = num2str(textToShow);
-		end	
-	end
+		
+	textToShow=data{root.index,attr.getIndex(txt)};
 
 	text(x,y-1.3*r,...
 		textToShow, ...
 		'Color','k',...
 		'FontSize',9, ...
-		'HorizontalAlignment','center')
+		'HorizontalAlignment','center');
 
 end

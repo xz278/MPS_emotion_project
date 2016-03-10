@@ -1,4 +1,10 @@
 %% scripts to load data from raw_data.xlsx in raw form (a cell array)
+% clear attrT;
+% clear ATTR;
+% clear trees;
+
+
+
 % ----------------------- load data --------------------------
 fileName='raw_data.xlsx';
 global DATA;
@@ -13,7 +19,7 @@ global ATTR;
 ATTR=Attr(attrT);
 % ---------------------- create node -------------------------
 trees=PostTrees();
-for (i=2:n)
+for (i=2:500)
 	post=Post(i);
 	post.id=str2num(DATA{i,ATTR.getIndex('id')});
 	post.parentId=str2num(DATA{i,ATTR.getIndex('parent_id')});
@@ -24,3 +30,5 @@ for (i=2:n)
 	post.snopeid=DATA{i,ATTR.getIndex('snope_id')};
 	trees.addPost(post);
 end
+
+trees.update();

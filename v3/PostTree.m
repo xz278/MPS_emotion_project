@@ -85,7 +85,7 @@ classdef PostTree < handle
 			q=SQueue();
 			q.offer(self.root);
 			d=0;
-			b=[];
+			b=zeros(1,3);
 			c=0;
 			while (~q.isEmpty())
 				s=q.getSize();
@@ -103,7 +103,7 @@ classdef PostTree < handle
 
 		end
 
-    function draw(self,showSnope,lineWidth,arg1,arg2,arg3,arg4)
+    function draw(self,data,attr,showSnope,lineWidth,arg1,arg2,arg3,arg4)
     	  if (strcmp(class(self.root),'double'))
     	  		fprintf('No root/snopee/a1 found: %s\n',self.snopeid);
     	  		return;
@@ -111,8 +111,8 @@ classdef PostTree < handle
 	      txt = 0;
 	      hl = 0;
 	      score = 0;
-	      if (nargin~=3)
-	        if (nargin==5)
+	      if (nargin~=5)
+	        if (nargin==7)
 	          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
 	            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
 	              fprintf('invalid arguments: bad type\n');
@@ -128,7 +128,7 @@ classdef PostTree < handle
 	            fprintf('invalid arguments\n');
 	            return;
 	          end
-	        elseif (nargin==7)
+	        elseif (nargin==9)
 	          if (strcmp(arg1,'highlight') || strcmp(arg1,'hl'))
 	            if (~strcmp(class(arg2),'char') && ~strcmp(class(arg2),'double'))
 	              fprintf('invalid arguments: bad type\n');
@@ -142,7 +142,7 @@ classdef PostTree < handle
 	            fprintf('invalid arguments\n');
 	            return;
 	          end
-	          if (strcmp(arg3,'highlight') || strcmp(arg1,'hl'))
+	          if (strcmp(arg3,'highlight') || strcmp(arg3,'hl'))
 	            if (~strcmp(class(arg4),'char') && ~strcmp(class(arg4),'double'))
 	              fprintf('invalid arguments: bad type\n');
 	              return;
@@ -165,7 +165,7 @@ classdef PostTree < handle
 	      close all;
 	      hold on;
 	      axis off;
-	      drawThreadTree(self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl,score);
+	      drawThreadTree(data,attr,self.root,showSnope,lineWidth,[0.7 0.7 0.7],0,0,1,1,0.2,txt,hl,score);
 	    end
 
 	    function b=getBreadthAt(self,d)
