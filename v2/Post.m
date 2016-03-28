@@ -7,6 +7,7 @@ classdef Post < handle
 		isSnope;
 		isSnoped;
 		treeId;
+		status;
 	end
 
 	methods
@@ -47,6 +48,7 @@ classdef Post < handle
 				else
 					p.isSnoped=false;
 				end
+				p.status=p.content.getValue('status');
 			end
 		end
 

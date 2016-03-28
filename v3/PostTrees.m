@@ -169,40 +169,89 @@ classdef PostTrees < handle
 
 	    % write all nodes to excel file
 	    % id,index,parentId,is_snope,is_snoped,status(1,2.1,2.2,3.1,3.2),link_id,snoper,snopee
-	    function writeAllToFile(self,data,attr)
+	    function writeAllToFile(self,data,attr,uniqueTree)
 	    	titles=strsplit('id,index,parentId,is_snope,is_snoped,status,link_id,snoper,snopee',',');
 	    	xlswrite('nodes_title',titles);
 	    	r=1;
 	    	x=[];
-	    	for (i=1:self.nTrees)
-	    		t=self.getTreeAt(i);
-	    		for (j=1:t.nPosts)
-	    			p=t.posts{j};
-	    			x(r,1)=p.id;
-	    			x(r,2)=p.index;
-	    			x(r,3)=p.parentId;
-	    			x(r,4)=p.isSnope;
-	    			x(r,5)=p.isSnoped;
-	    			status=p.getValue('status',data,attr);
-	    			if (strcmp('a1',status))
-	    				x(r,6)=1;
-	    			elseif (strcmp('b1',status) && p.isSnope)
-	    				x(r,6)=2.1;
-	    			elseif (strcmp('b1',status) && ~p.isSnope)
-	    				x(r,6)=2.2;
-	    			elseif (strcmp('a2',status) && p.parent.isSnope)
-	    				x(r,6)=3.1;
-	    			% elseif (strcmp('a2',status) && ~p.parent.is_snope)
-	    			else
-	    				x(r,6)=3.2;
-	    			end
-	    			x(r,7)=t.link_id;
-	    			x(r,8)=t.snoper;
-	    			x(r,9)=t.snopee;
-	    			r=r+1;
+
+	    	if (nargin<4)
+		    	for (i=1:self.nTrees)
+		    		t=self.getTreeAt(i);
+		    		for (j=1:t.nPosts)
+		    			p=t.posts{j};
+		    			x(r,1)=p.id;
+		    			x(r,2)=p.index;
+		    			x(r,3)=p.parentId;
+		    			x(r,4)=p.isSnope;
+		    			x(r,5)=p.isSnoped;
+		    			status=p.getValue('status',data,attr);
+		    			if (strcmp('a1',status))
+		    				x(r,6)=1;
+		    			elseif (strcmp('b1',status) && p.isSnope)
+		    				x(r,6)=2.1;
+		    			elseif (strcmp('b1',status) && ~p.isSnope)
+		    				x(r,6)=2.2;
+		    			elseif (strcmp('a2',status) && p.parent.isSnope)
+		    				x(r,6)=3.1;
+		    			% elseif (strcmp('a2',status) && ~p.parent.is_snope)
+		    			else
+		    				x(r,6)=3.2;
+		    			end
+		    			x(r,7)=t.link_id;
+		    			x(r,8)=t.snoper;
+		    			x(r,9)=t.snopee;
+		    			x(r,10)=t.depth;
+		    			r=r+1;
+		    		end
+		    	end
+	    	else
+	    		s=SSet();
+	    		[nn,dd]=size(uniqueTree);
+	    		for (m=2:nn)
+	    			s.putItem(uniqueTree{m,1});
+	    		end
+	        	for (i=1:self.nTrees)
+		    		t=self.getTreeAt(i);
+		    		if (s.contains(t.snopeid))
+			    		for (j=1:t.nPosts)
+			    			p=t.posts{j};
+			    			x(r,1)=p.id;
+			    			x(r,2)=p.index;
+			    			x(r,3)=p.parentId;
+			    			x(r,4)=p.isSnope;
+			    			x(r,5)=p.isSnoped;
+			    			status=p.getValue('status',data,attr);
+			    			if (strcmp('a1',status))
+			    				x(r,6)=1;
+			    			elseif (strcmp('b1',status) && p.isSnope)
+			    				x(r,6)=2.1;
+			    			elseif (strcmp('b1',status) && ~p.isSnope)
+			    				x(r,6)=2.2;
+			    			elseif (strcmp('a2',status) && p.parent.isSnope)
+			    				x(r,6)=3.1;
+			    			% elseif (strcmp('a2',status) && ~p.parent.is_snope)
+			    			else
+			    				x(r,6)=3.2;
+			    			end
+			    			x(r,7)=t.link_id;
+			    			x(r,8)=t.snoper;
+			    			x(r,9)=t.snopee;
+			    			x(r,10)=t.depth;
+			    			x(r,11)=p.getValue('affect',data,attr);
+			    			x(r,12)=p.getValue('posemo',data,attr);
+			    			x(r,13)=p.getValue('negemo',data,attr);
+			    			x(r,14)=p.getValue('anx',data,attr);
+			    			x(r,15)=p.getValue('anger',data,attr);
+			    			x(r,16)=p.getValue('sad',data,attr);
+			    			r=r+1;
+			    		end
+			    	end
 	    		end
 	    	end
-	    	xlswrite('nodes.xlsx',x);
+
+
+	    	xlswrite('nodes_uniqeTree.xlsx',x);
 	    end
 
 	end
